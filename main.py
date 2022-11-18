@@ -141,5 +141,11 @@ def main():
         if keys[pygame.K_UP] and player.y - player_vel > 0:
             player.y -= player_vel
 
+        for enemy in enemies[:]:
+            enemy.move(enemy_vel)
+            if enemy.y + enemy.get_height() > HEIGHT:
+                lives -= 1
+                enemies.remove(enemy)
+
 
 main()
