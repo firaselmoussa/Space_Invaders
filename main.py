@@ -37,7 +37,7 @@ BG = pygame.transform.scale(pygame.image.load(
 # ship class
 
 
-class ship:
+class Ship:
     def __init__(self, x, y, health=100):
         self.x = x
         self.y = y
@@ -47,6 +47,9 @@ class ship:
         self.lasers = []
         self.cool_down_counter = 0
 
+    def draw(self, window):
+        pygame.draw.rect(window, (255, 0, 0), (self.x, self.y, 50, 50))
+
 
 def main():
     run = True
@@ -54,6 +57,8 @@ def main():
     level = 1
     lives = 5
     main_font = pygame.font.SysFont("comicsans", 30)
+
+    ship = Ship(300, 650)
 
     clock = pygame.time.Clock()
 
@@ -65,6 +70,8 @@ def main():
 
         WIN.blit(lives_label, (10, 10))
         WIN.blit(level_label, (WIDTH - level_label.get_width() - 10, 10))
+
+        ship.draw(WIN)
         pygame.display.update()
 
     while run:
