@@ -14,3 +14,17 @@ BLUE_SPACE_SHIP = pygame.image.load(
 # player ship
 YELLOW_SPACE_SHIP = pygame.image.load(
     os.path.join("assets", "pixel_ship_yellow.png"))
+
+# lasers
+RED_LASER = pygame.image.load(
+    os.path.join("assets", "pixel_laser_red.png"))
+GREEN_LASER = pygame.image.load(
+    os.path.join("assets", "pixel_laser_green.png"))
+BLUE_LASER = pygame.image.load(
+    os.path.join("assets", "pixel_laser_blue.png"))
+YELLOW_LASER = pygame.image.load(
+    os.path.join("assets", "pixel_laser_yellow.png"))
+
+# background
+BG = pygame.image.load(
+    os.path.join("assets", "background-black.png"))
