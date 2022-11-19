@@ -45,13 +45,13 @@ class Laser():
         self.mask = pygame.mask.from_surface(self.img)
 
     def draw(self, window):
-        window.blit(self.img, self.x, self.y)
+        window.blit(self.img, (self.x, self.y))
 
-    def mov(self, vel):
+    def move(self, vel):
         self.y += vel
 
     def off_screen(self, height):
-        return self.y <= height and self.y >= 0
+        return not (self.y <= height and self.y >= 0)
 
     def collision(self, obj):
         return collide(self, obj)
@@ -68,7 +68,7 @@ def collide(obj1, obj2):
 
 
 class Ship:
-    COOLDOWN = 30
+    COOLDOWN = 10
 
     def __init__(self, x, y, health=100):
         self.x = x
@@ -163,7 +163,7 @@ def main():
     wave_length = 5
     enemy_vel = 1
     player_vel = 5
-    laser_vel = 4
+    laser_vel = 7
 
     player = Player(300, 600)
 
@@ -234,13 +234,13 @@ def main():
             player.shoot()
 
         for enemy in enemies[:]:
-            enemy.move(enemy_vel, player)
-            enemy.move_lasers(laser_vel)
+            enemy.move(enemy_vel)
+            enemy.move_lasers(laser_vel, player)
             if enemy.y + enemy.get_height() > HEIGHT:
                 lives -= 1
                 enemies.remove(enemy)
 
-        player.move_lasers(laser_vel, enemies)
+        player.move_lasers(-laser_vel, enemies)
 
 
 main()
