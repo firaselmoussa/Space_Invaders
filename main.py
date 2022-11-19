@@ -134,6 +134,17 @@ class Player(Ship):
                         objs.remove(obj)
                         self.lasers.remove(laser)
 
+    def draw(self, window):
+        super().draw(window)
+        self.healthbar(window)
+
+    def healthbar(self, window):
+        pygame.draw.rect(window, (255, 0, 0), (self.x, self.y +
+                         self.ship_img.get_height()+10, self.ship_img.get_width(), 5))
+        # self.ship_img.get_width()*self.health/self.max_heath
+        pygame.draw.rect(window, (0, 255, 0), (self.x, self.y + self.ship_img.get_height()+10,
+                         self.ship_img.get_width()*(1 - ((self.max_heath - self.health)/self.health)), 5))
+
 
 class Enemy(Ship):
     COLOR_MAP = {
@@ -171,7 +182,7 @@ def main():
     player_vel = 5
     laser_vel = 7
 
-    player = Player(300, 600)
+    player = Player(300, 585)
 
     clock = pygame.time.Clock()
 
@@ -231,7 +242,7 @@ def main():
             player.x -= player_vel
         if keys[pygame.K_RIGHT] and player.x + player_vel + player.get_width() < WIDTH:
             player.x += player_vel
-        if keys[pygame.K_DOWN] and player.y + player_vel + player.get_height() < HEIGHT:
+        if keys[pygame.K_DOWN] and player.y + player_vel + player.get_height() + 20 < HEIGHT:
             player.y += player_vel
         if keys[pygame.K_UP] and player.y - player_vel > 0:
             player.y -= player_vel
