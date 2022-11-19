@@ -121,6 +121,19 @@ class Player(Ship):
         self.mask = pygame.mask.from_surface(self.ship_img)
         self.max_heath = health
 
+    # will override super class's method
+    def move_lasers(self, vel, objs):
+        self.cooldown()
+        for laser in self.lasers:
+            laser.move(vel)
+            if laser.off_screen(HEIGHT):
+                self.lasers.remove(laser)
+            else:
+                for obj in objs:
+                    if laser.collision(obj):
+                        objs.remove(obj)
+                        self.lasers.remove(laser)
+
 
 class Enemy(Ship):
     COLOR_MAP = {
