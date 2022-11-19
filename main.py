@@ -1,3 +1,4 @@
+from tkinter import W
 import pygame
 import os
 import time
@@ -267,4 +268,22 @@ def main():
         player.move_lasers(-laser_vel, enemies)
 
 
-main()
+def main_menu():
+    main_font = pygame.font.SysFont("comicsans", 50)
+    main_label = main_font.render(
+        "Press the mouse to begin..", 1, (255, 255, 255))
+    run = True
+    while run:
+        WIN.blit(BG, (0, 0))
+        WIN.blit(main_label, (WIDTH/2 - main_label.get_width()/2, HEIGHT/2))
+
+        pygame.display.update()
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                run = False
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                main()
+    quit()
+
+
+main_menu()
