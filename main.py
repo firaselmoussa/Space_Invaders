@@ -162,8 +162,8 @@ def main():
     enemies = []
     wave_length = 5
     enemy_vel = 1
-
     player_vel = 5
+    laser_vel = 4
 
     player = Player(300, 600)
 
@@ -234,10 +234,13 @@ def main():
             player.shoot()
 
         for enemy in enemies[:]:
-            enemy.move(enemy_vel)
+            enemy.move(enemy_vel, player)
+            enemy.move_lasers(laser_vel)
             if enemy.y + enemy.get_height() > HEIGHT:
                 lives -= 1
                 enemies.remove(enemy)
+
+        player.move_lasers(laser_vel, enemies)
 
 
 main()
