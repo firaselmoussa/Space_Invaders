@@ -135,6 +135,7 @@ class Player(Ship):
                     if laser.collision(obj):
                         objs.remove(obj)
                         self.lasers.remove(laser)
+                        score += 1
 
     def draw(self, window):
         super().draw(window)
@@ -143,9 +144,9 @@ class Player(Ship):
     def healthbar(self, window):
         pygame.draw.rect(window, (255, 0, 0), (self.x, self.y +
                          self.ship_img.get_height()+10, self.ship_img.get_width(), 5))
-        # self.ship_img.get_width()*self.health/self.max_heath
-        pygame.draw.rect(window, (0, 255, 0), (self.x, self.y + self.ship_img.get_height()+10,
-                         self.ship_img.get_width()*(1 - ((self.max_heath - self.health)/self.health)), 5))
+        #self.ship_img.get_width()*(1 - ((self.max_heath - self.health)/self.health))
+        pygame.draw.rect(window, (0, 255, 0), (self.x, self.y + self.ship_img.get_height() +
+                         10, self.ship_img.get_width()*self.health/self.max_heath, 5))
 
 
 class Enemy(Ship):
@@ -175,6 +176,7 @@ def main():
     FPS = 60
     level = 0
     lives = 5
+    score = 0
     main_font = pygame.font.SysFont("comicsans", 30)
     lost_font = pygame.font.SysFont("comicsans", 40)
 
@@ -196,9 +198,11 @@ def main():
         # draw font
         lives_label = main_font.render(f"Lives: {lives}", 1, (255, 255, 255))
         level_label = main_font.render(f"Level: {level}", 1, (255, 255, 255))
+        score_label = main_font.render(f"kills: {score}", 1, (255, 255, 255))
 
         WIN.blit(lives_label, (10, 10))
         WIN.blit(level_label, (WIDTH - level_label.get_width() - 10, 10))
+        # WIN.blit(score_label, (WIDTH/2 - level_label.get_width()/2 - 10, 10))
 
         for enemy in enemies:
             enemy.draw(WIN)
@@ -222,7 +226,7 @@ def main():
 
         if lost:
             if lost_count > FPS * 3:
-                run = False
+                main_menu()
             else:
                 continue
 
