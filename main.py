@@ -85,9 +85,10 @@ class Enemy(Ship):
 def main():
     run = True
     FPS = 60
-    level = 1
+    level = 0
     lives = 5
     main_font = pygame.font.SysFont("comicsans", 30)
+    lost_font = pygame.font.SysFont("comicsans", 40)
 
     enemies = []
     wave_length = 5
@@ -98,6 +99,8 @@ def main():
     player = Player(300, 600)
 
     clock = pygame.time.Clock()
+
+    lost = False
 
     def redraw_window():
         WIN.blit(BG, (0, 0))
@@ -113,10 +116,19 @@ def main():
 
         player.draw(WIN)
 
+        if lost:
+            lost_label = lost_font.render("You Lost!!", 1, (255, 0, 0))
+            WIN.blit(lost_label, (WIDTH/2 - lost_label.get_width() /
+                     2, HEIGHT/2 - lost_label.get_height()/2))
+
         pygame.display.update()
 
     while run:
         clock.tick(FPS)
+
+        if lives <= 0 or player.health <= 0:
+            lost = True
+
         redraw_window()
         if len(enemies) == 0:
             level += 1
