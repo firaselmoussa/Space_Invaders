@@ -135,7 +135,6 @@ class Player(Ship):
                     if laser.collision(obj):
                         objs.remove(obj)
                         self.lasers.remove(laser)
-                        score += 1
 
     def draw(self, window):
         super().draw(window)
@@ -271,6 +270,8 @@ def main():
                 enemies.remove(enemy)
 
         player.move_lasers(-laser_vel, enemies)
+
+# main menu
 
 
 def main_menu():
